@@ -8,22 +8,22 @@ import emailRegistro from "../helpers/emailRegistro.js";
 // hacemos la validacion si el usuario ya existe para no tener usuarios duplicados mediante la comparacion de email,
 // una vez validado enviamos  mensage de usuario registrado en caso contrario  es envi9ado un mensaje de error
 const registrar = async (req, res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     
     const {email, nombre } = req.body
 
     // Prevenir usuarios registrados
-    const existeUsuario = await Administrador.findOne({email})
+    const existeUsuario = await Administrador.findOne({email});
 
     if(existeUsuario) {
         const error = new Error(' Usuario ya Registrado')
-        return res.status(400).json({msg : error.message})
+        return res.status(400).json({msg : error.message});
     }
 
     try{
     // Guardar nuevo veterinario
       const administrador = new Administrador(req.body)
-      const administradorGuardado = await administrador.save()
+      const administradorGuardado = await administrador.save();
 
     // ENVIAR EMAIL
     emailRegistro({
@@ -34,7 +34,7 @@ const registrar = async (req, res)=>{
 
       res.json(administradorGuardado );
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 
 };
@@ -55,16 +55,16 @@ const confirmar = async (req, res) => {
     const usuarioConfirmar = await Administrador.findOne({token})
     
     if(!usuarioConfirmar) {
-        const error = new Error(' Token no valido')
-        return res.status(404).json({ msg: error.message })
+        const error = new Error(' Token no valido');
+        return res.status(404).json({ msg: error.message });
     }
 
     try {
         usuarioConfirmar.token = null;
-        usuarioConfirmar.confirmado = true
-        await usuarioConfirmar.save()
+        usuarioConfirmar.confirmado = true;
+        await usuarioConfirmar.save();
 
-        res.json({ msg: 'Usuario confirmado Correctamente '})
+        res.json({ msg: 'Usuario confirmado Correctamente '});
 
     } catch (error) {
         console.log(error)
