@@ -22,7 +22,7 @@ const Registrar = () => {
             setAlerta({msg : 'Los Password no coinciden', error : true})
             return
         }
-        if(password.length < 8) {
+        if(password.length < 6) {
             setAlerta({msg : 'Password no cumple requisitos, agrega minimo 8 caracteres', error : true})
             return
         }

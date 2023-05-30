@@ -2,6 +2,7 @@ import Administrador from "../models/Administrador.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generaID.js";
 import emailRegistro from "../helpers/emailRegistro.js";
+import emailOlvidePassword from "../helpers/emailOlvidePassword.js";
 
 
 // registramos un usuario en el request de postman con los campos a llenar del model schema, 
@@ -64,7 +65,7 @@ const confirmar = async (req, res) => {
         usuarioConfirmar.confirmado = true;
         await usuarioConfirmar.save();
 
-        res.json({ msg: 'Usuario confirmado Correctamente '});
+        return res.json({ msg: 'Usuario confirmado Correctamente '});
 
     } catch (error) {
         console.log(error)
@@ -120,6 +121,15 @@ const olvidePassword =  async(req, res) => {
     try {
         existeAdministrador.token = generarId()
         await existeAdministrador.save()
+
+        // Enviar Email con Instrucciones
+        emailOlvidePassword({
+            email,
+            nombre: existeAdministrador.nombre,
+            token: existeAdministrador.token
+        })
+
+
         res.json({msg: 'Hemos enviado un email  con las instrucciones'})
     }catch (error) {
         console.log(error)
