@@ -103,6 +103,7 @@ const autenticar = async (req ,res) => {
             nombre: usuario.nombre,
             email:  usuario.email,
             token : generarJWT(usuario.id),
+                
         })
     }else {
         const error = new Error('El Password es Invalido')
