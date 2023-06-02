@@ -44,7 +44,7 @@ const perfil = (req, res)=>{
 // extraemos la informacion del request una vez el usuario este autenticado
     const { administrador} = req
 // mostramos los datos del usuario que fueron extraidos desde el request
-    res.json({ perfil: administrador});
+    res.json({ administrador});
 };
 
 
@@ -97,7 +97,13 @@ const autenticar = async (req ,res) => {
     if(await usuario.comprobarPassword(password)) {
    
         // Autenticar
-        res.json({token: generarJWT(usuario.id)})
+        
+        res.json({
+            _id:    usuario._id,
+            nombre: usuario.nombre,
+            email:  usuario.email,
+            token : generarJWT(usuario.id),
+        })
     }else {
         const error = new Error('El Password es Invalido')
         return res.status(403).json({ msg: error.message})
