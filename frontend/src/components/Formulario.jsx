@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alerta from './Alerta'
+import useEmpresas from "../hooks/useEmpresas";
 
 const Formulario = () => {
     const [nombre , setNombre] = useState('')
@@ -9,30 +10,62 @@ const Formulario = () => {
     const [redesSociales , setRedesSociales] = useState('')
     const [paginaWeb , setPaginaWeb] = useState('')
     const [logotipo , setLogotipo] = useState('')
+    const [ id , setId] = useState(null)
+    
 
     const [alerta, setAlerta] = useState({})
+
+    const  {guardarEmpresa, empresa} = useEmpresas()
+
+    useEffect(() => {
+       if(empresa?.nombre){
+        setNombre(empresa.nombre)
+        setDireccion(empresa.direccion)
+        setEmail(empresa.email)
+        setTelefono(empresa.telefono)
+        setRedesSociales(empresa.redesSociales)
+        setPaginaWeb(empresa.paginaWeb)
+        setLogotipo(empresa.logotipo)
+        setId(empresa._id)
+       }
+    }, [empresa])
 
     const handleSubmit = e  => {
         e.preventDefault()
 
         // Validar Formulario
-        if([nombre, direccion, email, telefono, redesSociales. paginaWeb, logotipo].includes('')){
+        if([nombre, direccion, email, telefono, redesSociales, paginaWeb, logotipo].includes('')){
             setAlerta({
                 msg: 'Todos los campos son obligatorios',
                 error: true
             })
             return
         }
+
+        
+        guardarEmpresa({nombre, direccion, email, telefono, redesSociales, paginaWeb, logotipo, id})
+        setAlerta({
+            msg: 'Guardado Correctamente'
+        })
+        setNombre('')
+        setDireccion('')
+        setEmail('')
+        setTelefono('')
+        setRedesSociales('')
+        setPaginaWeb('')
+        setLogotipo('')
+        setId('')
     }
 
     const {msg} = alerta
 
   return (
     <>
-        <p className="text-lg text-center mb-10">
-            Añade las empresas y {''}
-            <span className="text-indigo-600 font-bold">Administralas</span>
-        </p>
+          <h2 className="font-extrabold text-3xl text-center ">{" "}Administrador de Empresas</h2>
+          <p className="text-xl mt-5 mb-10 px-5 py-5 text-center">
+            Añade tus Empresas y {""}
+            <span className="text-indigo-600 font-bold">Administralas </span>
+          </p>
 
 
         <form className="bg-white py-10 px-5 mb-10 lg:mb-5 shadow-xl rounded-xl"
@@ -138,7 +171,8 @@ const Formulario = () => {
             </div>
             <input 
                 type="submit"
-                className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors rounded-xl"          
+                className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors rounded-xl"  
+                value={ id ? 'Guardar Cambios ' : 'Agregar Empresa'}        
             />
         </form>
         {msg && <Alerta alerta={alerta} />}
