@@ -1,11 +1,13 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
+import useAuth from "../hooks/useAuth";
 
 const EmpresasContext = createContext();
 
 export const EmpresasProvider = ({ children }) => {
   const [empresas, setEmpresas] = useState([]);
   const [empresa, setEmpresa] = useState({});
+  const {auth} = useAuth()
 
   useEffect(() => {
     const obtenerEmpresas = async () => {
@@ -26,7 +28,7 @@ export const EmpresasProvider = ({ children }) => {
       }
     };
     obtenerEmpresas();
-  }, []);
+  }, [auth]);
 
   const guardarEmpresa = async (empresa) => {
     const token = localStorage.getItem("token");

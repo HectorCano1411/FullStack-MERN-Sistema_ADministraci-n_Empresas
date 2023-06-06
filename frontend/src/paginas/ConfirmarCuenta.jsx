@@ -43,7 +43,7 @@ const ConfirmarCuenta = () => {
     <>
       <div>
         <div>
-          <h1 className="text-indigo-600 font-black text-6xl">
+          <h1 className="text-white font-black text-6xl">
             Confirma tu Cuenta y comienza a Administrar {""}
             <span className="text-black">Las Empresas</span>
           </h1>

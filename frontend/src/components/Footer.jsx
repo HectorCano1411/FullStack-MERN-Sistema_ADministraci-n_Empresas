@@ -4,11 +4,11 @@ const Footer = () => {
     return (
       <footer className="py-10">
 
-        <p className="text-center font-bold"> SAE - Sistema Administrador de 
+        <p className="text-center font-bold text-white"> SAE - Sistema Administrador de 
         {''}
-        <span className="text-indigo-600"> Empresas </span>
+        <span className="text-white"> Empresas </span>
         </p>
-
+        <p  className="text-center font-bold text-white">Desarrollador Hector Cano Leal</p>
       </footer>
     )
   };

@@ -185,5 +185,62 @@ const nuevoPassword = async (req, res) => {
 
 }
 
+const actualizarPerfil = async (req, res) => {
+    const administrador = await Administrador.findById(req.params.id);
+    if(!administrador) {
+        const error = new Error('Hubo un error')
+        return res.status(400).json({msg: error.message})
+    }
 
-export {registrar, perfil, confirmar, autenticar, olvidePassword, comprobarToken, nuevoPassword}
+    const {email} = req.body
+    if(administrador.email !== req.body.email){
+        const existeEmail = await Administrador.findOne({email})
+        if(existeEmail){
+            const error = new Error('Ese email ya esta en uso')
+            return res.status(400).json({msg: error.message})
+        }
+    }
+
+
+    try {
+        administrador.nombre = req.body.nombre 
+        administrador.email = req.body.email 
+        administrador.telefono = req.body.telefono 
+        administrador.web = req.body.web 
+
+        const administradorActualizado = await administrador.save()
+        res.json(administradorActualizado)
+    } catch (error) {
+        console.log(error)
+    }
+  
+}
+
+const actualizarPassword  = async (req, res) => {
+    // leer los datros
+    const {id} =  req.administrador
+    const {pwd_actual, pwd_nuevo} = req.body
+
+    // Comprobar que el administrador exista
+    const administrador = await Administrador.findById(id);
+    if(!administrador) {
+        const error = new Error('Hubo un error')
+        return res.status(400).json({msg: error.message})
+    }
+    // Comprobar su password
+    if(await administrador.comprobarPassword(pwd_actual)){
+       // Almacenar el nuevo password
+       administrador.password = pwd_nuevo
+       await administrador.save() 
+       res.json({msg: 'Password almacenado correctamente'})
+
+    }else {
+        const error = new Error('El password actual es incorrecto')
+        return res.status(400).json({msg: error.message})
+    }
+    
+
+}
+
+
+export {registrar, perfil, confirmar, autenticar, olvidePassword, comprobarToken, nuevoPassword, actualizarPerfil,actualizarPassword,}

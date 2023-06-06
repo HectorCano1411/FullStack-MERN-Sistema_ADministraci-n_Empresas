@@ -50,13 +50,76 @@ const AuthProvider = ({children}) => {
 
     }
 
+    const actualizarPerfil = async datos => {
+        const token = localStorage.getItem('token')
+        if(!token) {
+            setCargando(false)
+            return
+
+        }
+        const config = {
+            headers: {
+                "Content-Type":"application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+        try {
+            const url = `/administrador/perfil/${datos._id}`
+            const {data} = await clienteAxios.put(url, datos, config)
+            setAuth(data)
+            return {
+                msg: 'Almacenado  Correctamente'
+            }
+                
+            
+        } catch (error) {
+                return {
+                    msg: error.response.data.msg,
+                    error:true
+                }            
+        }
+
+    }
+
+    const guardarPassword = async (datos) => {
+        const token = localStorage.getItem('token')
+        if(!token) {
+            setCargando(false)
+            return
+
+        }
+        const config = {
+            headers: {
+                "Content-Type":"application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+        try {
+            const url ='/administrador/actualizar_password'
+            const {data} = await clienteAxios.put(url, datos, config)
+            console.log(data)
+            return {
+                msg: data.msg
+            }
+            
+        } catch (error) {
+            return {
+                msg: error.response.data.msg,
+                error:true
+            }
+            
+        }
+    }
+
     return (
         <AuthContex.Provider
             value = {{
                 auth,
                 setAuth,
                 cargando,
-                cerrarSesion
+                cerrarSesion,
+                actualizarPerfil,
+                guardarPassword
             }}
         
         >

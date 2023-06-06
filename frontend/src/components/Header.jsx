@@ -19,7 +19,7 @@ const Header = () => {
           {/* <img src={Logo5} alt="Logo" className="h-16 sm:h-24 w-auto mr-2" /> */}
         </div>
 
-        <h1 className="font-bold text-lg lg:text-2xl text-indigo-200 mb-4 lg:mb-0">
+        <h1 className="font-bold text-lg lg:text-2xl text-white mb-4 lg:mb-0">
           Sistema Administrador de{" "}
           <span className="text-white font-black">Empresas</span>
         </h1>
@@ -33,7 +33,7 @@ const Header = () => {
               Empresas
             </Link>
             <Link
-              to="/perfil"
+              to="/admin/perfil"
               className="text-white text-sm uppercase font-bold px-3 py-2"
             >
               Perfil
@@ -54,3 +54,4 @@ const Header = () => {
 };
 
 export default Header;
+// style={{ backgroundColor: "#053861" }}

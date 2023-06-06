@@ -6,7 +6,9 @@ import {registrar,
         autenticar, 
         olvidePassword, 
         comprobarToken, 
-        nuevoPassword
+        nuevoPassword,
+        actualizarPerfil,
+        actualizarPassword
 } from '../conrollers/AdministradorController.js'
 import checkAuth from "../middleware/authMiddleware.js";
 
@@ -20,6 +22,8 @@ router.route('/olvide_password/:token').get(comprobarToken).post(nuevoPassword)/
 
 // AREA PRIVADA
 router.get('/perfil', checkAuth, perfil)
+router.put('/perfil/:id', checkAuth, actualizarPerfil)
+router.put('/actualizar_password', checkAuth,  actualizarPassword)
 
 
 export default router;

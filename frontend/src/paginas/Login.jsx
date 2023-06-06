@@ -4,15 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import Alerta from "../components/Alerta";
 import useAuth from "../hooks/useAuth";
 import clienteAxios from "../config/axios";
+import Logo1 from "../img/logo_sercotec-uno.png";
+import Logo3 from "../img/Logo CDN SECUNDARIO Color + letra blanca.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alerta, setAlerta] = useState({});
 
-  const {setAuth } = useAuth()
+  const { setAuth } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,8 +34,8 @@ const Login = () => {
         password,
       });
       localStorage.setItem("token", data.token);
-      setAuth(data)
-      navigate('/admin')
+      setAuth(data);
+      navigate("/admin");
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
@@ -46,7 +48,13 @@ const Login = () => {
   return (
     <>
       <div>
-        <h1 className="text-indigo-600 font-black text-6xl">
+        <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center">
+          <div className="absolute top-0 left-0 flex flex-wrap gap-2 sm:gap-4 ml-4 mt-4" >
+            <img src={Logo1} alt="Logo" className="h-16 sm:h-24 w-auto mr-2" />
+            <img src={Logo3} alt="Logo" className="h-16 sm:h-24 w-auto mr-2" />
+          </div>
+        </div>
+        <h1 className="text-white font-black text-6xl" >
           Inicia Sesión y Administra {""} tus
           <span className="text-black"> Empresas</span>
         </h1>

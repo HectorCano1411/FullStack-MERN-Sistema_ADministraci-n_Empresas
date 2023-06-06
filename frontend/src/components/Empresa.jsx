@@ -1,4 +1,6 @@
 import useEmpresas from "../hooks/useEmpresas"
+import Logo3 from "../img/Logo CDN SECUNDARIO Color.jpg";
+
 
 const Empresa = ({empresa}) => {
     const {setEdicion, eliminarEmpresa} = useEmpresas()
@@ -7,6 +9,8 @@ const Empresa = ({empresa}) => {
 
   return (
     <div className="mx-5 my-10 bg-white shadow-xl px-5 py-10 rounded-xl">
+      <img src={Logo3} alt="Logo" className="h-16 sm:h-24 w-auto mr-2" />
+
       <p className="font-bold upercase text-indigo-800 my-2">Nombre: {''}
         <span className="font-normal normal-case text-black">{nombre}</span>
       </p>
@@ -28,9 +32,9 @@ const Empresa = ({empresa}) => {
       <p className="font-bold upercase text-indigo-800 my-2">Logtipo: {''}
         <span className="font-normal normal-case text-black">{logotipo}</span>
       </p>
-      <p className="font-bold upercase text-indigo-800 my-2">ID: {''}
+      {/* <p className="font-bold upercase text-indigo-800 my-2">ID: {''}
         <span className="font-normal normal-case text-black">{_id}</span>
-      </p>
+      </p> */}
 
       <div className="flex justify-between my-5">
         <button

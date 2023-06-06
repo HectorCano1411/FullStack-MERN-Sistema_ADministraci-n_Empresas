@@ -9,14 +9,14 @@ const ListadoEmpresas = () => {
       {empresas.length ? 
       (
         <>
-          <h2 className="font-black text-3xl text-center ">
+          <h2 className="font-black text-3xl text-center text-white">
             {" "}
             Listado de Empresas
           </h2>
 
-          <p className="text-xl mt-5 mb-10 px-5 py-5 text-center">
+          <p className="text-xl mt-5 mb-10 px-5 py-5 text-center text-white">
             Administra tus {""}
-            <span className="text-indigo-600 font-bold">Empresas </span>
+            <span className="text-black font-bold">Empresas </span>
           </p>
           {empresas.map(empresa => (
             <Empresa 
